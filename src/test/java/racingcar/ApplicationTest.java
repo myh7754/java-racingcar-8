@@ -75,4 +75,5 @@ class ApplicationTest extends NsTest {
                 .hasMessageContaining("차 이름이 비어있습니다.");
     }
 
+
 }

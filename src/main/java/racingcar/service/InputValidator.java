@@ -13,5 +13,9 @@ public class InputValidator {
             }
         });
 
+        long distinctCount = carNames.stream().distinct().count();
+        if (distinctCount != carNames.size()) {
+            throw new IllegalArgumentException("자동차 이름은 중복될 수 없습니다");
+        }
     }
 }
