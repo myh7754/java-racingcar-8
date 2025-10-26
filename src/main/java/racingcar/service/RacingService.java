@@ -1,17 +1,19 @@
 package racingcar.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import racingcar.domain.Cars;
+import racingcar.domain.Car;
+
+import java.util.List;
 
 public class RacingService {
     private int generateRandomNumber() {
         return Randoms.pickNumberInRange(0, 9);
     }
 
-    public void play(int tryCount, Cars car) {
-        for  (int i = 0; i < tryCount; i++) {
+    public void randomMoveCar(List<Car> cars) {
+        for (Car car : cars) {
             int randomNumber = generateRandomNumber();
-            if (randomNumber >= 4) {
+            if (randomNumber >= 5) {
                 car.move();
             }
         }
