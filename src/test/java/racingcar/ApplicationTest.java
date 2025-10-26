@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import racingcar.service.InputParser;
+import racingcar.service.InputValidator;
 
 import java.util.List;
 
@@ -16,11 +17,13 @@ class ApplicationTest extends NsTest {
     private static final int MOVING_FORWARD = 4;
     private static final int STOP = 3;
     private InputParser inputParser;
+    private InputValidator inputValidator;
     private static  final String INPUT_MESSAGE = "112,119,소방차,경찰차";
 
     @BeforeEach
     void setUp() {
         inputParser = new InputParser();
+        inputValidator = new InputValidator();
     }
 
     @Test
@@ -55,5 +58,14 @@ class ApplicationTest extends NsTest {
                 .hasSize(4)
                 .containsExactly("112","119","소방차","경찰차");
     }
+
+    @Test
+    public void 자동차이름_길이_검증() {
+        List<String> carNames = List.of("pobi","woni11");
+        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("이름은 5글자 이하여야 합니다");
+    }
+
 
 }
