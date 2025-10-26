@@ -75,5 +75,12 @@ class ApplicationTest extends NsTest {
                 .hasMessageContaining("차 이름이 비어있습니다.");
     }
 
+    @Test
+    public void 자동차이름_중복_검증() {
+        List<String> carNames = List.of("pobi", "pobi","canno");
+        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("자동차 이름은 중복될 수 없습니다");
+    }
 
 }
