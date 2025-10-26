@@ -18,7 +18,7 @@ class ApplicationTest extends NsTest {
     private static final int STOP = 3;
     private InputParser inputParser;
     private InputValidator inputValidator;
-    private static  final String INPUT_MESSAGE = "112,119,소방차,경찰차";
+    private static final String INPUT_MESSAGE = "112,119,소방차,경찰차";
 
     @BeforeEach
     void setUp() {
@@ -29,19 +29,19 @@ class ApplicationTest extends NsTest {
     @Test
     void 기능_테스트() {
         assertRandomNumberInRangeTest(
-            () -> {
-                run("pobi,woni", "1");
-                assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자 : pobi");
-            },
-            MOVING_FORWARD, STOP
+                () -> {
+                    run("pobi,woni", "1");
+                    assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자 : pobi");
+                },
+                MOVING_FORWARD, STOP
         );
     }
 
     @Test
     void 예외_테스트() {
         assertSimpleTest(() ->
-            assertThatThrownBy(() -> runException("pobi,javaji", "1"))
-                .isInstanceOf(IllegalArgumentException.class)
+                assertThatThrownBy(() -> runException("pobi,javaji", "1"))
+                        .isInstanceOf(IllegalArgumentException.class)
         );
     }
 
@@ -56,17 +56,23 @@ class ApplicationTest extends NsTest {
 
         assertThat(parsedMessage)
                 .hasSize(4)
-                .containsExactly("112","119","소방차","경찰차");
+                .containsExactly("112", "119", "소방차", "경찰차");
     }
 
     @Test
     public void 자동차이름_길이_검증() {
-        List<String> carNames = List.of("pobi","woni11");
+        List<String> carNames = List.of("pobi", "woni11");
         assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이름은 5글자 이하여야 합니다");
     }
 
     @Test
+    public void 빈_자동차_이름_검증() {
+        List<String> carNames = List.of("pobi", "");
+        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("차 이름이 비어있습니다.");
+    }
 
 }
