@@ -67,5 +67,6 @@ class ApplicationTest extends NsTest {
                 .hasMessageContaining("이름은 5글자 이하여야 합니다");
     }
 
+    @Test
 
 }
