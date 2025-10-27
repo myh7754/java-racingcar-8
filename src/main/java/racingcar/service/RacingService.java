@@ -6,14 +6,15 @@ import racingcar.domain.Car;
 import java.util.List;
 
 public class RacingService {
-    private int generateRandomNumber() {
-        return Randoms.pickNumberInRange(0, 9);
+    private final GenerateNumber numberGenerator;
+    public RacingService(GenerateNumber generateNumber) {
+        this.numberGenerator = generateNumber;
     }
 
     public void randomMoveCar(List<Car> cars) {
         for (Car car : cars) {
-            int randomNumber = generateRandomNumber();
-            if (randomNumber >= 5) {
+            int randomNumber = numberGenerator.generateNumber();
+            if (randomNumber >= 4) {
                 car.move();
             }
         }

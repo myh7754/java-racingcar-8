@@ -3,10 +3,11 @@ package racingcar;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import racingcar.service.InputParser;
-import racingcar.service.InputValidator;
+import racingcar.domain.Car;
+import racingcar.service.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -18,12 +19,16 @@ class ApplicationTest extends NsTest {
     private static final int STOP = 3;
     private InputParser inputParser;
     private InputValidator inputValidator;
+    private RacingService racingService;
+    private GenerateNumber generateNumber;
     private static final String INPUT_MESSAGE = "112,119,소방차,경찰차";
 
     @BeforeEach
     void setUp() {
         inputParser = new InputParser();
         inputValidator = new InputValidator();
+        generateNumber = new GenerateRandomNumber();
+        racingService = new RacingService(generateNumber);
     }
 
     @Test
@@ -77,10 +82,14 @@ class ApplicationTest extends NsTest {
 
     @Test
     public void 자동차이름_중복_검증() {
-        List<String> carNames = List.of("pobi", "pobi","canno");
+        List<String> carNames = List.of("pobi", "pobi", "canno");
         assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름은 중복될 수 없습니다");
+    }
+
+    @Test
+    public void 자동차_전진_테스트() {
     }
 
 }
