@@ -4,7 +4,7 @@ import java.util.List;
 
 public class InputValidator {
     public void validateCarName(List<String> carNames){
-        carNames.stream().forEach(carName -> {
+        carNames.forEach(carName -> {
             if(carName.isEmpty()){
                 throw new IllegalArgumentException("차 이름이 비어있습니다.");
             }
