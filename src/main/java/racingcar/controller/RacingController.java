@@ -23,14 +23,16 @@ public class RacingController {
         this.outputView = new OutputView();
     }
     public void run() {
-        int tryCount = inputView.inputTryCount();
         String s = inputView.inputCarNames();
+        int tryCount = inputView.inputTryCount();
         List<String> carNames = inputParser.parseCarNames(s);
         inputValidator.validationCarName(carNames);
         List<Car> cars = racingService.createCars(carNames);
         outputView.printResultStart();
         for (int i =0; i < tryCount; i++ ) {
             racingService.randomMoveCar(cars);
+            outputView.printRoundResult(cars);
         }
+        racingService.findWinner(cars);
     }
 }
