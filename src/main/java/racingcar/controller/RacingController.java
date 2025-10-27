@@ -23,18 +23,32 @@ public class RacingController {
         this.outputView = new OutputView();
     }
     public void run() {
-        String carNamesInput = inputView.inputCarNames();
+        List<Car> cars = createCars();
+        int tryCount = inputTryCount();
+
+        outputView.printResultStart();
+        playRace(cars, tryCount);
+
+        List<Car> winner = racingService.findWinner(cars);
+        outputView.resultMessage(winner);
+    }
+
+    private int inputTryCount(){
         String inputCount = inputView.inputTryCount();
-        int tryCount = inputValidator.validateCount(inputCount);
+        return inputValidator.validateCount(inputCount);
+    }
+
+    private List<Car> createCars(){
+        String carNamesInput = inputView.inputCarNames();
         List<String> carNames = inputParser.parseCarNames(carNamesInput);
         inputValidator.validateCarName(carNames);
-        List<Car> cars = racingService.createCars(carNames);
-        outputView.printResultStart();
+        return racingService.createCars(carNames);
+    }
+
+    private void playRace(List<Car> cars, int tryCount){
         for (int i =0; i < tryCount; i++) {
             racingService.randomMoveCar(cars);
             outputView.printRoundResult(cars);
         }
-        List<Car> winner = racingService.findWinner(cars);
-        outputView.resultMessage(winner);
     }
 }
