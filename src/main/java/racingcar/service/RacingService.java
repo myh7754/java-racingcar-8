@@ -21,13 +21,10 @@ public class RacingService {
         }
     }
 
-    public List<Car> playGame(List<String> carNames, int tryCount) {
+    public List<Car> createCars(List<String> carNames) {
         List<Car> cars = carNames.stream()
                 .map(Car::new)
                 .collect(Collectors.toList());
-        for (int i = 0; i < tryCount; i++) {
-            randomMoveCar(cars);
-        }
-        return  cars;
+        return cars;
     }
 }

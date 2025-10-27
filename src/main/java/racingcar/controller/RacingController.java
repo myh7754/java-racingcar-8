@@ -23,10 +23,14 @@ public class RacingController {
         this.outputView = new OutputView();
     }
     public void run() {
-        int i = inputView.inputTryCount();
+        int tryCount = inputView.inputTryCount();
         String s = inputView.inputCarNames();
-        List<String> strings = inputParser.parseCarNames(s);
-        inputValidator.validationCarName(strings);
-        List<Car> cars = racingService.playGame(strings, i);
+        List<String> carNames = inputParser.parseCarNames(s);
+        inputValidator.validationCarName(carNames);
+        List<Car> cars = racingService.createCars(carNames);
+        outputView.printResultStart();
+        for (int i =0; i < tryCount; i++ ) {
+            racingService.randomMoveCar(cars);
+        }
     }
 }
