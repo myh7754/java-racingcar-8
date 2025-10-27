@@ -3,7 +3,7 @@ package racingcar.service;
 import java.util.List;
 
 public class InputValidator {
-    public void validationCarName(List<String> carNames){
+    public void validateCarName(List<String> carNames){
         carNames.stream().forEach(carName -> {
             if(carName.isEmpty()){
                 throw new IllegalArgumentException("차 이름이 비어있습니다.");

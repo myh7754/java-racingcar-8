@@ -63,7 +63,7 @@ class ApplicationTest extends NsTest {
     @Test
     public void 자동차이름_길이_검증() {
         List<String> carNames = List.of("pobi", "woni11");
-        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+        assertThatThrownBy(() -> inputValidator.validateCarName(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이름은 5글자 이하여야 합니다");
     }
@@ -71,7 +71,7 @@ class ApplicationTest extends NsTest {
     @Test
     public void 빈_자동차_이름_검증() {
         List<String> carNames = List.of("pobi", "");
-        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+        assertThatThrownBy(() -> inputValidator.validateCarName(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("차 이름이 비어있습니다.");
     }
@@ -79,7 +79,7 @@ class ApplicationTest extends NsTest {
     @Test
     public void 자동차이름_중복_검증() {
         List<String> carNames = List.of("pobi", "pobi", "canno");
-        assertThatThrownBy(() -> inputValidator.validationCarName(carNames))
+        assertThatThrownBy(() -> inputValidator.validateCarName(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("자동차 이름은 중복될 수 없습니다");
     }
