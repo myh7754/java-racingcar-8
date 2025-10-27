@@ -23,10 +23,10 @@ public class RacingController {
         this.outputView = new OutputView();
     }
     public void run() {
-        String s = inputView.inputCarNames();
+        String carNamesInput = inputView.inputCarNames();
         String inputCount = inputView.inputTryCount();
         int tryCount = inputValidator.validateCount(inputCount);
-        List<String> carNames = inputParser.parseCarNames(s);
+        List<String> carNames = inputParser.parseCarNames(carNamesInput);
         inputValidator.validationCarName(carNames);
         List<Car> cars = racingService.createCars(carNames);
         outputView.printResultStart();
