@@ -19,16 +19,12 @@ class ApplicationTest extends NsTest {
     private static final int STOP = 3;
     private InputParser inputParser;
     private InputValidator inputValidator;
-    private RacingService racingService;
-    private GenerateNumber generateNumber;
     private static final String INPUT_MESSAGE = "112,119,소방차,경찰차";
 
     @BeforeEach
     void setUp() {
         inputParser = new InputParser();
         inputValidator = new InputValidator();
-        generateNumber = new GenerateRandomNumber();
-        racingService = new RacingService(generateNumber);
     }
 
     @Test
@@ -90,6 +86,52 @@ class ApplicationTest extends NsTest {
 
     @Test
     public void 자동차_전진_테스트() {
+        List<String> carNames = List.of("pobi", "kk", "canno");
+        List<Car> cars = carNames.stream()
+                .map(Car::new)
+                .collect(Collectors.toList());
+
+        GenerateNumber mockNumber = () -> 5;
+        RacingService racingService = new RacingService(mockNumber);
+
+        racingService.randomMoveCar(cars);
+        assertThat(cars.get(0).getPosition()).isEqualTo(1);
+        assertThat(cars.get(1).getPosition()).isEqualTo(1);
+        assertThat(cars.get(2).getPosition()).isEqualTo(1);
+    }
+
+    @Test
+    public void 자동차_전진_실패_테스트() {
+        List<String> carNames = List.of("pobi", "kk", "canno");
+        List<Car> cars = carNames.stream()
+                .map(Car::new)
+                .collect(Collectors.toList());
+
+        GenerateNumber mockNumber = () -> 3;
+        RacingService racingService = new RacingService(mockNumber);
+
+        racingService.randomMoveCar(cars);
+        assertThat(cars.get(0).getPosition()).isEqualTo(0);
+        assertThat(cars.get(1).getPosition()).isEqualTo(0);
+        assertThat(cars.get(2).getPosition()).isEqualTo(0);
+    }
+
+    @Test
+    public void 자동자_전진_혼합_테스트() {
+        List<String> carNames = List.of("pobi", "kk", "canno");
+        List<Car> cars = carNames.stream()
+                .map(Car::new)
+                .collect(Collectors.toList());
+        int [] numbers = {4,3,7};
+        int[] index = {0};
+
+        GenerateNumber mockNumber = () -> numbers[index[0]++];
+        RacingService racingService = new RacingService(mockNumber);
+
+        racingService.randomMoveCar(cars);
+        assertThat(cars.get(0).getPosition()).isEqualTo(1);
+        assertThat(cars.get(1).getPosition()).isEqualTo(0);
+        assertThat(cars.get(2).getPosition()).isEqualTo(1);
     }
 
 }
