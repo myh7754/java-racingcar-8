@@ -18,5 +18,11 @@ public class InputValidator {
             throw new IllegalArgumentException("자동차 이름은 중복될 수 없습니다");
         }
     }
+    public int validateCount(String inputCount) {
+        try {
+            return Integer.parseInt(inputCount);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("올바른 숫자를 입력해야 합니다: "+ inputCount);        }
+    }
 
 }
