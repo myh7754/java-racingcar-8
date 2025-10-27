@@ -33,6 +33,7 @@ public class RacingController {
             racingService.randomMoveCar(cars);
             outputView.printRoundResult(cars);
         }
-        racingService.findWinner(cars);
+        List<Car> winner = racingService.findWinner(cars);
+        outputView.resultMessage(winner);
     }
 }
