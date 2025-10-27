@@ -30,7 +30,7 @@ public class RacingController {
         inputValidator.validationCarName(carNames);
         List<Car> cars = racingService.createCars(carNames);
         outputView.printResultStart();
-        for (int i =0; i < tryCount; i++ ) {
+        for (int i =0; i < tryCount; i++) {
             racingService.randomMoveCar(cars);
             outputView.printRoundResult(cars);
         }
