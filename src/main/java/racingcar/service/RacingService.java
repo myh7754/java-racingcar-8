@@ -27,4 +27,16 @@ public class RacingService {
                 .collect(Collectors.toList());
         return cars;
     }
+
+    public List<Car> findWinner(List<Car> cars) {
+        int max = cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
+
+        return cars.stream()
+                .filter(c -> c.getPosition() == max)
+                .collect(Collectors.toList());
+    }
+
 }
